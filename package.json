@@ -18,8 +18,13 @@
   },
   "homepage": "https://github.com/1ziton/cqrobot#readme",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
     "cqhttp": "^1.1.1",
+    "cron": "^1.7.1",
+    "dayjs": "^1.8.14",
+    "del": "^4.1.1",
     "es6-promise": "^4.2.8",
+    "fs-extra": "^8.0.1",
     "isomorphic-fetch": "^2.2.1",
     "node-typhoon": "^1.1.0",
     "request": "^2.88.0",

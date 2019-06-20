@@ -2,12 +2,11 @@ const CQHttp = require('cqhttp');
 const config = require('./config');
 const pipelines = require('./app/pipelines');
 // utils
-const _ = require('./utils/util');
 const imgUtil = require('./utils/image');
 // module
 const SearchPicture = require('./app/search-picture');
 const getTyphoonInfo = require('./app/typhoon.js');
-const jobs = require('./app/jobs');
+const Corn = require('./corn');
 
 const { apiRoot, accessToken, secret } = config;
 
@@ -100,13 +99,6 @@ function msgHandler(text = '', context, messageType) {
         message: text
       });
     });
-  } else if (_.isFindJobs(text) && messageType !== 'group') {
-    jobs().then(result => {
-      bot('send_msg', {
-        ...context,
-        message: result
-      });
-    });
   }
 }
 
@@ -163,5 +155,5 @@ bot.on('request', context => {
 });
  */
 bot.listen(8080, '0.0.0.0');
-
+Corn(bot);
 console.log('监听：8080, 0.0.0.0');

@@ -4,6 +4,14 @@
 
 ![autoreply](https://user-images.githubusercontent.com/8676711/59826919-f4d59d00-9369-11e9-9755-ac0b5c794064.png)
 
+## Feature
+
+- 查开发者头条，回复 `toutiao`
+- 查询台风信息，回复 `查台风`
+- 支持微信图片搜索，自动回复图片
+
+关键字 `图 xxx`，比如要搜索`篮球`，回复：`图 篮球`，搜索新垣结衣，回复：`图 新垣结衣`
+
 ## Usage
 
 - npm install

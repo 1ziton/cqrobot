@@ -5,5 +5,10 @@ module.exports = {
   gitlab: {
     host: 'git.giscafer.com', // 你的gitlab域名
     privateToken: 'xxx' // 访问gitlab的私有秘钥
+  },
+  rss: {
+    // 订阅一些消息的群，比如开发者头条等
+    groupIds: ['123135'],
+    kr36GroupIds: ['5675634234']  
   }
 };
