@@ -30,8 +30,7 @@ bot.on('message', context => {
     }
     if (raw_message.includes('!!')) {
       let idx = message.indexOf('!!');
-      console.log('。。。。进来了。。。。。');
-      const projectName = raw_message.substring(idx + 1) || '';
+      const projectName = raw_message.substring(idx + 2) || '';
       console.log('。。。。进来了。。。。。', projectName);
 
       if (!projectName.trim()) return;
@@ -96,4 +95,4 @@ bot.on('request', context => {
  */
 bot.listen(8080, '0.0.0.0');
 
-console.log('ssssa'.includes('b'));
+console.log('监听：8080, 0.0.0.0');
