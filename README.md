@@ -2,7 +2,7 @@
 
 基于 CoolQ HTTP 和 [cqhttp-node-sdk](https://github.com/richardchien/cqhttp-node-sdk) 实现的 QQ 机器人
 
-![](https://user-images.githubusercontent.com/8676711/59818870-35c4b600-9358-11e9-8ef2-858d044d0f47.png)
+![autoreply](https://user-images.githubusercontent.com/8676711/59826919-f4d59d00-9369-11e9-9755-ac0b5c794064.png)
 
 ## Usage
 
