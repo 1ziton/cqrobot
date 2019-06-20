@@ -25,7 +25,7 @@ bot.on('message', context => {
   if (message_type === 'group') {
     // at消息
     let idx = message.indexOf('at,qq=3616909583]');
-    let msg = message.substring(idx + atLen);
+    let msg = message.substring(idx + atLen + 1) || '';
     console.log(msg);
     if (idx === -1) {
       return;
@@ -72,6 +72,7 @@ bot.on('message', context => {
 });
 
 function msgHandler(text = '', context, messageType) {
+  text = text.trim();
   // 图片搜索
   if (text.indexOf('图 ') === 0) {
     SearchPicture.getPicture(
