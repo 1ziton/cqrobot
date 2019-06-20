@@ -4,15 +4,31 @@
  * @description: 消息发送
  */
 
-module.exports = function(bot, msg, group) {
+function send(bot, msg, group) {
+  let message = '';
+  const dateStr = dayjs().format('M月D日');
   return new Promise((resolve, reject) => {
-    const message =
-      `《${msg.title}》\n` +
-      `${msg.description}\n` +
-      `${msg.votes ? `点赞数：${msg.votes}，` : ''}` +
-      `来源：「${msg.subjectName}」\n` +
-      `原文链接：${msg.url}\n` +
-      '------------------------------\n\n';
+
+    if (Array.isArray(msg)) {
+      message = 
+        `${dateStr}晨报：\n` +
+        '-----------------------------\n';
+      msg.forEach(item => {
+        message +=
+          `>《${msg.title}》: ${item.url}\n`
+      });
+
+    } else if (msg.title) {
+      message =
+        `《${msg.title}》\n` +
+        `${msg.description}\n` +
+        `${msg.votes ? `点赞数：${msg.votes}，` : ''}` +
+        `来源：「${msg.subjectName}」\n` +
+        `原文链接：${msg.url}\n` +
+        '------------------------------\n\n';
+    } else {
+      message = msg
+    }
 
     if (Array.isArray(group)) {
       let sendArr = [];
@@ -36,4 +52,8 @@ module.exports = function(bot, msg, group) {
         .catch(reject);
     }
   });
-};
+}
+
+
+
+module.exports = send;

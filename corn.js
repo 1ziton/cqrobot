@@ -29,19 +29,14 @@ Linux(开源系统似乎都可以)下还有个 "/" 可以用. 在 Minute 字段�
 */
 
 let _bot;
-function publish(msgList, groupIds) {
-  let sendArr = [];
-  for (let msg of msgList) {
-    sendArr.push(send(_bot, msg, groupIds));
-  }
 
-  Promise.all(sendArr)
-    .then(() => {
-      log(`定时消息发送成功`);
-    })
-    .catch(err => {
-      log(`定时发送失败`, err.stack ? err.stack : err);
-    });
+function publish(msgList, groupIds) {
+  send(_bot, msgList, groupIds).then(() => {
+    log(`定时消息发送成功:${groupIds}`);
+  })
+  .catch(err => {
+    log(`定时发送失败:${groupIds}`, err.stack ? err.stack : err);
+  });
 }
 
 module.exports = function(bot) {
