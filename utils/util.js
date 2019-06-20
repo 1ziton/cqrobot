@@ -80,7 +80,7 @@ function getTransText(text) {
 
 // 查招聘行情
 function isFindJobs(text) {
-  return text.startsWith('查招聘');
+  return text.startsWith('find a job');
 }
 
 module.exports = {

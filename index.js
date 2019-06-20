@@ -1,5 +1,4 @@
 const CQHttp = require('cqhttp');
-const request = require('request');
 const config = require('./config');
 const pipelines = require('./app/pipelines');
 // utils
@@ -9,7 +8,6 @@ const imgUtil = require('./utils/image');
 const SearchPicture = require('./app/search-picture');
 const getTyphoonInfo = require('./app/typhoon.js');
 const jobs = require('./app/jobs');
-const translate = require('./app/translate');
 
 const { apiRoot, accessToken, secret } = config;
 
@@ -62,7 +60,7 @@ bot.on('message', context => {
       return;
     }
 
-    msgHandler(msg, context);
+    msgHandler(msg, context, message_type);
 
     return;
   }
@@ -73,7 +71,7 @@ bot.on('message', context => {
   }
 });
 
-function msgHandler(text = '', context) {
+function msgHandler(text = '', context, messageType) {
   // 图片搜索
   if (text.indexOf('图 ') === 0) {
     SearchPicture.getPicture(
@@ -101,27 +99,7 @@ function msgHandler(text = '', context) {
         message: text
       });
     });
-  } else if (_.isTranslate(text)) {
-    // 词典翻译
-    let _text = _.getTransText(text);
-    translate(
-      Object.assign(
-        {
-          from: 'en',
-          to: 'zh',
-          query: _text
-        },
-        _.transTarget(text)
-      ),
-      result => {
-        bot('send_msg', {
-          ...context,
-          message: result
-        });
-      }
-    );
-  } else if (_.isFindJobs(text)) {
-    // 查招聘行情
+  } else if (_.isFindJobs(text) && messageType !== 'group') {
     jobs().then(result => {
       bot('send_msg', {
         ...context,
