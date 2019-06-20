@@ -1,5 +1,9 @@
 module.exports = {
-  apiRoot: 'http://120.0.0.1:5700/',
-  accessToken: '123',
-  secret: 'abc'
+  apiRoot: 'http://120.0.0.1:5700/', //cq http api root地址
+  accessToken: '123', //cq http api 设置的配置，没设置可以不填
+  secret: 'abc', //cq http api 设置的配置，没设置可以不填
+  gitlab: {
+    host: 'git.giscafer.com', // 你的gitlab域名
+    privateToken: 'xxx' // 访问gitlab的私有秘钥
+  }
 };
