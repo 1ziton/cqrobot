@@ -19,6 +19,10 @@
   "homepage": "https://github.com/1ziton/cqrobot#readme",
   "dependencies": {
     "cqhttp": "^1.1.1",
-    "request": "^2.88.0"
+    "es6-promise": "^4.2.8",
+    "isomorphic-fetch": "^2.2.1",
+    "node-typhoon": "^1.1.0",
+    "request": "^2.88.0",
+    "urlencode": "^1.1.0"
   }
 }

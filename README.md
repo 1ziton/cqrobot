@@ -12,6 +12,10 @@
 
 > 注意： bot.listen 的端口就是 cqhttp post_url 的接口，部署脚本的时候保证脚本和服务器在一个局域网内，我远程调试不行，代码上传服务器才正常接收到消息。
 
+## Related
+
+- [CoolQ/DingTalk 实现 CI/CD 消息推送到群](https://github.com/giscafer/front-end-manual/issues/31)
+
 ## License
 
 MIT
