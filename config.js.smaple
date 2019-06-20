@@ -1,0 +1,5 @@
+module.exports = {
+  apiRoot: 'http://120.0.0.1:5700/',
+  accessToken: '123',
+  secret: 'abc'
+};

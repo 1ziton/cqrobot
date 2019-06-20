@@ -1,0 +1,23 @@
+{
+  "name": "cqrobot",
+  "version": "1.0.0",
+  "description": "基于  CoolQ HTTP 的机器人",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1ziton/cqrobot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/1ziton/cqrobot/issues"
+  },
+  "homepage": "https://github.com/1ziton/cqrobot#readme",
+  "dependencies": {
+    "cqhttp": "^1.1.1"
+  }
+}
