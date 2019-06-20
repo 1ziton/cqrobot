@@ -30,7 +30,7 @@ function getProjectIdByName(projectName) {
   return new Promise((resolve, reject) => {
     getPojectIds().then(data => {
       const projects = JSON.parse(data);
-      console.log(projects);
+      //   console.log(projects);
       const arr = projects.filter(p => p.name === projectName);
       if (arr.length) return resolve(arr[0]['id']);
       return reject({
