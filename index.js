@@ -12,7 +12,7 @@ const bot = new CQHttp({
 const atLen = 't,qq=3616909583]'.length;
 
 bot.on('message', context => {
-  console.log('message', context);
+  //   console.log('message', context);
   const { message, raw_message, message_type } = context;
 
   if (message_type === 'group') {
