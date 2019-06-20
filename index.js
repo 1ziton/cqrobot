@@ -27,7 +27,10 @@ bot.on('message', context => {
       return;
     }
     if (raw_message.includes('!!')) {
+      console.log('。。。。进来了。。。。。');
       const projectName = raw_message.substring(idx + 1) || '';
+      console.log('。。。。进来了。。。。。', projectName);
+
       if (!projectName.trim()) return;
       pipelines
         .queryPipelines(projectName.trim())

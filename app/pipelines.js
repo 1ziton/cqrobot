@@ -73,6 +73,9 @@ function queryPipelines(projectName) {
               'Pipeline status': '正在执行…',
               'Pipeline URL': item.web_url
             }));
+            if (newResult.length === 0) {
+              newResult = [projectName + '没有正在执行的Pipelins'];
+            }
             return resolve(JSON.stringify(newResult));
           })
           .catch(err => {
