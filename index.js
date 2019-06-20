@@ -9,6 +9,8 @@ const bot = new CQHttp({
   accessToken
 });
 
+const atLen = 't,qq=3616909583]'.length;
+
 bot.on('message', context => {
   console.log('message', context);
   const { message, raw_message, message_type } = context;
@@ -27,6 +29,7 @@ bot.on('message', context => {
       return;
     }
     if (raw_message.includes('!!')) {
+      let idx = message.indexOf('!!');
       console.log('。。。。进来了。。。。。');
       const projectName = raw_message.substring(idx + 1) || '';
       console.log('。。。。进来了。。。。。', projectName);
