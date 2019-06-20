@@ -11,7 +11,7 @@ const bot = new CQHttp({
 
 bot.on('message', context => {
   console.log('message', context);
-  if (raw_message == '德玛西亚') {
+  if (context.raw_message == '德玛西亚') {
     bot('send_msg', {
       ...context,
       message: '人在塔在！'
