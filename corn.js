@@ -38,15 +38,9 @@ function publish(msgList, groupIds) {
   Promise.all(sendArr)
     .then(() => {
       log(`定时消息发送成功`);
-      setTimeout(() => {
-        del.sync('./tmp');
-      }, 1000 * 60 * 2);
     })
     .catch(err => {
       log(`定时发送失败`, err.stack ? err.stack : err);
-      setTimeout(() => {
-        del.sync('./tmp');
-      }, 1000 * 60 * 2);
     });
 }
 
@@ -78,7 +72,7 @@ module.exports = function(bot) {
   );
   // 每天，9点00分推送36kr信息
   let job_kr36_notice = new CronJob(
-    `00 9 * * * *`,
+    `00 9 * * *`,
     () => {
       let articles = Kr36.getData();
       publish(articles, config.rss.kr36GroupIds);
