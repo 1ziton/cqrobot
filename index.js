@@ -10,16 +10,14 @@ const bot = new CQHttp({
 });
 
 bot.on('message', context => {
-  console.log(context);
-  bot('send_msg', {
-    ...context,
-    message: '哈喽～'
-  });
-});
-
-bot('send_msg', {
-  user_id: '1020279026',
-  message: '哈喽～'
+  console.log('message', context);
+  if (raw_message == '德玛西亚') {
+    bot('send_msg', {
+      ...context,
+      message: '人在塔在！'
+    });
+    return;
+  }
 });
 
 /**
@@ -51,7 +49,7 @@ bot.on('event', context => {
  * 版本 4.x，请用 notice
  */
 bot.on('notice', context => {
-  console.log(context);
+  console.log('notice', context);
   if (context.notice_type === 'group_increase') {
     // 处理群成员添加事件
     bot('get_group_member_info', {
@@ -62,7 +60,7 @@ bot.on('notice', context => {
         const name = data.nickname || '新人';
         bot('send_group_msg_async', {
           group_id: context.group_id,
-          message: `欢迎${name}～`
+          message: `欢迎 ${name} 同学入群～🌹🌹🌹`
         }).catch(err => {});
       })
       .catch(err => {
@@ -73,7 +71,7 @@ bot.on('notice', context => {
 });
 
 bot.on('request', context => {
-  console.log(context);
+  console.log('request', context);
   if (context.request_type === 'group') {
     // 处理加群请求
     if (context.message !== 'some-secret') {
