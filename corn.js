@@ -3,14 +3,15 @@
  * @date: 2019-6-20 18:48:58
  * @description: 定时器
  */
-require('./utils/polyfill');
-const CronJob = require('cron').CronJob;
-const del = require('del');
-const Toutiao = require('./app/geToutiao');
-const Kr36 = require('./app/get36Kr');
-const send = require('./utils/send');
-const log = require('./utils/log');
-const config = require('./config');
+require("./utils/polyfill");
+const CronJob = require("cron").CronJob;
+const del = require("del");
+const Toutiao = require("./app/geToutiao");
+const Kr36 = require("./app/get36Kr");
+const Jike = require("./app/jike");
+const send = require("./utils/send");
+const log = require("./utils/log");
+const config = require("./config");
 
 /**
 *  Crontab 的格式说明如下:
@@ -31,12 +32,13 @@ Linux(开源系统似乎都可以)下还有个 "/" 可以用. 在 Minute 字段�
 let _bot;
 
 function publish(msgList, groupIds) {
-  send(_bot, msgList, groupIds).then(() => {
-    log(`定时消息发送成功:${groupIds}`);
-  })
-  .catch(err => {
-    log(`定时发送失败:${groupIds}`, err.stack ? err.stack : err);
-  });
+  send(_bot, msgList, groupIds)
+    .then(() => {
+      log(`定时消息发送成功:${groupIds}`);
+    })
+    .catch(err => {
+      log(`定时发送失败:${groupIds}`, err.stack ? err.stack : err);
+    });
 }
 
 module.exports = function(bot) {
@@ -51,7 +53,7 @@ module.exports = function(bot) {
     },
     null,
     true,
-    'Asia/Shanghai'
+    "Asia/Shanghai"
   );
 
   // 每天，8点50分推送头条信息
@@ -63,7 +65,7 @@ module.exports = function(bot) {
     },
     null,
     true,
-    'Asia/Shanghai'
+    "Asia/Shanghai"
   );
   // 每天，9点00分推送36kr信息
   let job_kr36_notice = new CronJob(
@@ -74,7 +76,19 @@ module.exports = function(bot) {
     },
     null,
     true,
-    'Asia/Shanghai'
+    "Asia/Shanghai"
+  );
+  // 每天，9点00分推送36kr信息
+  let job_kr36_notice = new CronJob(
+    `59 8 * * *`,
+    () => {
+      Jike.getData().then(content => {
+        publish(content, config.rss.jikeGroupIds);
+      });
+    },
+    null,
+    true,
+    "Asia/Shanghai"
   );
   //   let test = new CronJob(
   //     '*/10 * * * * *',
@@ -95,5 +109,5 @@ module.exports = function(bot) {
   job_kr36_notice.start();
   job_toutiao_notice.start();
   //   test.start();
-  log('job started');
+  log("job started");
 };

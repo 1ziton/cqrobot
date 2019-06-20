@@ -9,6 +9,7 @@ module.exports = {
   rss: {
     // 订阅一些消息的群，比如开发者头条等
     groupIds: ['123135'],
-    kr36GroupIds: ['5675634234']  
+    kr36GroupIds: ['5675634234'],
+    jikeGroupIds: ["5675634234"]
   }
 };
