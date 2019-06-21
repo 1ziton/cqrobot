@@ -3,15 +3,15 @@
  * @date: 2019-6-20 18:48:58
  * @description: 定时器
  */
-require("./utils/polyfill");
-const CronJob = require("cron").CronJob;
-const del = require("del");
-const Toutiao = require("./app/geToutiao");
-const Kr36 = require("./app/get36Kr");
-const Jike = require("./app/jike");
-const send = require("./utils/send");
-const log = require("./utils/log");
-const config = require("./config");
+require('./utils/polyfill');
+const CronJob = require('cron').CronJob;
+const del = require('del');
+const Toutiao = require('./app/geToutiao');
+const Kr36 = require('./app/get36Kr');
+const Jike = require('./app/jike');
+const send = require('./utils/send');
+const log = require('./utils/log');
+const config = require('./config');
 
 /**
 *  Crontab 的格式说明如下:
@@ -53,34 +53,34 @@ module.exports = function(bot) {
     },
     null,
     true,
-    "Asia/Shanghai"
+    'Asia/Shanghai'
   );
 
   // 每天，8点50分推送头条信息
   let job_toutiao_notice = new CronJob(
-    `50 8 * * 1-6`,
+    `50 9 * * 1-6`,
     () => {
       let articles = Toutiao.getData();
       publish(articles, config.rss.groupIds);
     },
     null,
     true,
-    "Asia/Shanghai"
+    'Asia/Shanghai'
   );
   // 每天，9点00分推送36kr信息
   let job_kr36_notice = new CronJob(
-    `00 9 * * *`,
+    `40 9 * * *`,
     () => {
       let articles = Kr36.getData();
       publish(articles, config.rss.kr36GroupIds);
     },
     null,
     true,
-    "Asia/Shanghai"
+    'Asia/Shanghai'
   );
   // 每天，9点00分推送36kr信息
-  let job_kr36_notice = new CronJob(
-    `59 8 * * *`,
+  let job_jike_notice = new CronJob(
+    `59 9 * * *`,
     () => {
       Jike.getData().then(content => {
         publish(content, config.rss.jikeGroupIds);
@@ -88,7 +88,7 @@ module.exports = function(bot) {
     },
     null,
     true,
-    "Asia/Shanghai"
+    'Asia/Shanghai'
   );
   //   let test = new CronJob(
   //     '*/10 * * * * *',
@@ -107,7 +107,8 @@ module.exports = function(bot) {
 
   job_datasync.start();
   job_kr36_notice.start();
+  job_jike_notice.start();
   job_toutiao_notice.start();
   //   test.start();
-  log("job started");
+  log('job started');
 };
