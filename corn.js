@@ -69,7 +69,7 @@ module.exports = function(bot) {
   );
   // 每天，9点00分推送36kr信息
   let job_kr36_notice = new CronJob(
-    `40 9 * * *`,
+    `45 9 * * *`,
     () => {
       let articles = Kr36.getData();
       publish(articles, config.rss.kr36GroupIds);
@@ -80,7 +80,7 @@ module.exports = function(bot) {
   );
   // 每天，9点00分推送36kr信息
   let job_jike_notice = new CronJob(
-    `59 9 * * *`,
+    `46 9 * * *`,
     () => {
       Jike.getData().then(content => {
         publish(content, config.rss.jikeGroupIds);
