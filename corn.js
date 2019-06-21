@@ -46,7 +46,7 @@ module.exports = function(bot) {
   //   console.log(_bot);
   // 每天，8点整同步数据
   let job_datasync = new CronJob(
-    `00 8 * * *`,
+    `* 8 * * *`,
     () => {
       Toutiao.generateDataJson();
       Kr36.generateDataJson();
@@ -58,7 +58,7 @@ module.exports = function(bot) {
 
   // 每天，8点50分推送头条信息
   let job_toutiao_notice = new CronJob(
-    `50 9 * * 1-6`,
+    `54 9 * * *`,
     () => {
       let articles = Toutiao.getData();
       publish(articles, config.rss.groupIds);
@@ -69,7 +69,7 @@ module.exports = function(bot) {
   );
   // 每天，9点00分推送36kr信息
   let job_kr36_notice = new CronJob(
-    `45 9 * * *`,
+    `5 9 * * *`,
     () => {
       let articles = Kr36.getData();
       publish(articles, config.rss.kr36GroupIds);
@@ -78,9 +78,9 @@ module.exports = function(bot) {
     true,
     'Asia/Shanghai'
   );
-  // 每天，9点00分推送36kr信息
+  // 即刻早报
   let job_jike_notice = new CronJob(
-    `46 9 * * *`,
+    `50 8 * * *`,
     () => {
       Jike.getData().then(content => {
         publish(content, config.rss.jikeGroupIds);

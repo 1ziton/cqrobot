@@ -4,20 +4,17 @@
  * @description: 消息发送
  */
 
+const dayjs = require('dayjs');
+
 function send(bot, msg, group) {
   let message = '';
   const dateStr = dayjs().format('M月D日');
   return new Promise((resolve, reject) => {
-
     if (Array.isArray(msg)) {
-      message = 
-        `${dateStr}晨报：\n` +
-        '-----------------------------\n';
+      message = `${dateStr}晨报：\n` + '-----------------------------\n';
       msg.forEach(item => {
-        message +=
-          `>《${msg.title}》: ${item.url}\n`
+        message += `>《${item.title}》: ${item.url}\n`;
       });
-
     } else if (msg.title) {
       message =
         `《${msg.title}》\n` +
@@ -27,7 +24,7 @@ function send(bot, msg, group) {
         `原文链接：${msg.url}\n` +
         '------------------------------\n\n';
     } else {
-      message = msg
+      message = msg;
     }
 
     if (Array.isArray(group)) {
@@ -53,7 +50,5 @@ function send(bot, msg, group) {
     }
   });
 }
-
-
 
 module.exports = send;
