@@ -19,7 +19,7 @@ const bot = new CQHttp({
 const atLen = `t,qq=${robotQQ}]`.length;
 
 bot.on('message', context => {
-  //   console.log('message', context);
+  console.log('message', context);
   const { message, raw_message, message_type } = context;
 
   if (message_type === 'group') {

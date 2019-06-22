@@ -12,9 +12,15 @@ const projectCfgs = require('../../project-config');
 
 const { triggerToken, host } = config.gitlab;
 
-function triggerPipeline(projectName, env) {
+/**
+ * 触发器
+ * @param {*} projectName 项目名称变量
+ * @param {*} env 环境
+ * @param {*} groupId 群组QQ号
+ */
+function triggerPipeline(projectName, env, groupId) {
   exec(
-    `curl -X POST -F token=${triggerToken} -F ref=master  -F "variables[TRG_PROJECT_NAME]=${projectName}" -F "variables[TRG_PROJECT_ENV]=${env}" https://${host}/api/v4/projects/511/trigger/pipeline`,
+    `curl -X POST -F token=${triggerToken} -F ref=master  -F "variables[TRG_CQ_GROUP_ID]=${groupId}" -F "variables[TRG_PROJECT_NAME]=${projectName}" -F "variables[TRG_PROJECT_ENV]=${env}" https://${host}/api/v4/projects/511/trigger/pipeline`,
     function(error, stdout, stderr) {
       if (error) {
         console.error('error: ' + error);
@@ -26,7 +32,7 @@ function triggerPipeline(projectName, env) {
   );
 }
 
-function triggerPipelineByProjectName(projectName, env = '') {
+function triggerPipelineByProjectName(projectName, env = '', groupId) {
   return new Promise((resolve, reject) => {
     const result = checkProjectExist(projectName);
     let item = result[0];
@@ -50,7 +56,7 @@ function triggerPipelineByProjectName(projectName, env = '') {
     }
     if (!env) {
       keys.forEach(key => {
-        triggerPipeline(projectName, key);
+        triggerPipeline(projectName, key, groupId);
       });
     } else {
       if (item.url && !item.url[env]) {
@@ -60,7 +66,7 @@ function triggerPipelineByProjectName(projectName, env = '') {
           } 没有找到 ${projectName} 需要检查的 ${env} 服务环境，管理员没有维护`
         );
       } else if (item.url && item.url[env]) {
-        triggerPipeline(projectName, env);
+        triggerPipeline(projectName, env, groupId);
       }
     }
 
@@ -73,7 +79,7 @@ function checkProjectExist(projectName) {
   return item;
 }
 
-// triggerPipelineByProjectName('ips', 'prod').then(res => console.log(res));
+// triggerPipelineByProjectName('bms', 'prod').then(res => console.log(res));
 
 module.exports = {
   triggerPipeline,
