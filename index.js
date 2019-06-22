@@ -20,7 +20,7 @@ const atLen = `t,qq=${robotQQ}]`.length;
 
 bot.on('message', context => {
   console.log('message', context);
-  const { message, raw_message, message_type } = context;
+  const { message, raw_message, message_type, group_id } = context;
 
   if (message_type === 'group') {
     // at消息
@@ -71,14 +71,16 @@ bot.on('message', context => {
       projectName = projectName.trim();
       projectEnv = projectEnv.trim();
 
-      PjServiceCheck.triggerPipelineByProjectName(projectName, projectEnv).then(
-        msg => {
-          bot('send_msg', {
-            ...context,
-            message: msg
-          });
-        }
-      );
+      PjServiceCheck.triggerPipelineByProjectName(
+        projectName,
+        projectEnv,
+        group_id
+      ).then(msg => {
+        bot('send_msg', {
+          ...context,
+          message: msg
+        });
+      });
       return;
     }
 
