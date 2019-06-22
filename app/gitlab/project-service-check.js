@@ -30,18 +30,18 @@ function triggerPipelineByProjectName(projectName, env) {
   return new Promise((resolve, reject) => {
     const result = checkProjectExist(projectName);
     let item = result[0];
+    let keys = [];
     if (result.length === 0)
       return resolve(
         `${
           facecode.question
         } 没有找到 ${projectName} 项目，请检查项目名称是否正确，或者该项目的代码还在编写中……`
       );
-    let keys;
     if (item.url && typeof item.url === 'object') {
       keys = Object.keys(item.url);
     }
-    console.log(item);
-    if (!keys) {
+    console.log(item, keys);
+    if (!keys.length) {
       return resolve(
         `${
           facecode.question
