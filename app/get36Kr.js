@@ -1,5 +1,5 @@
-const dayjs = require("dayjs");
-const saveData = require("../utils/saveData");
+const dayjs = require('dayjs');
+const saveData = require('../utils/saveData');
 
 function get36KrData(page = 20) {
   return fetch(`https://36kr.com/pp/api/newsflash?per_page=${page}`)
@@ -12,7 +12,7 @@ function get36KrData(page = 20) {
             description: item.description,
             url: item.news_url,
             news_url: item.news_url,
-            subjectName: "36Kr快讯",
+            subjectName: '36Kr快讯',
             created_at: item.created_at
           };
         });
@@ -26,12 +26,12 @@ function generateDataJson() {
   (async () => {
     let data = await get36KrData();
     if (data.length > 0) {
-      const date = dayjs().format("YYYY-MM-DD");
+      const date = dayjs().format('YYYY-MM-DD');
       console.log(`> 共获取 36Kr 快讯 ${data.length} 条原始数据！${date}`);
       data = data.filter(item => {
         if (
           item.created_at &&
-          date === item.created_at.split(" ")[0] &&
+          date === item.created_at.split(' ')[0] &&
           item.news_url
         ) {
           return true;
@@ -41,15 +41,15 @@ function generateDataJson() {
       console.log(`> 共过滤 ${date} 36Kr 快讯 ${data.length} 条数据！`);
     }
     if (data.length > 0) {
-      await saveData(data, "36kr.json");
+      await saveData(data, '36kr.json');
     }
     console.log(`> 共获取 36Kr 快讯 ${data.length} 条数据！`);
   })();
 }
 
 function getData() {
-  const acticles = require("../dist/36kr.json");
-  return acticles.slice(0, 10);
+  const acticles = require('../dist/36kr.json');
+  return acticles.slice(0, 15);
 }
 
 module.exports = {

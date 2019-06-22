@@ -67,7 +67,7 @@ function generateDataJson() {
 
 function getData() {
   const acticles = require('../dist/toutiao-7.json');
-  return acticles.slice(0, 6);
+  return acticles.slice(0, 9);
 }
 
 module.exports = {

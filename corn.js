@@ -56,9 +56,9 @@ module.exports = function(bot) {
     'Asia/Shanghai'
   );
 
-  // 每天，8点50分推送头条信息
+  // 每周一推送头条信息
   let job_toutiao_notice = new CronJob(
-    `54 9 * * *`,
+    `54 8 * * 1`,
     () => {
       let articles = Toutiao.getData();
       publish(articles, config.rss.groupIds);
@@ -69,7 +69,7 @@ module.exports = function(bot) {
   );
   // 每天，9点00分推送36kr信息
   let job_kr36_notice = new CronJob(
-    `5 9 * * *`,
+    `40 8 * * *`,
     () => {
       let articles = Kr36.getData();
       publish(articles, config.rss.kr36GroupIds);

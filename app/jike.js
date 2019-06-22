@@ -57,7 +57,7 @@ function getData() {
     });
 }
 
-getData().then(result => console.log(result));
+// getData().then(result => console.log(result));
 
 module.exports = {
   getData
