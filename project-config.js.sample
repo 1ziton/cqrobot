@@ -1,0 +1,76 @@
+/* 需检查的项目配置 */
+
+module.exports = [
+  {
+    name: 'ips',
+    projectName: 'ips-web',
+    projectId: 97,
+    url: {
+      test20: 'http://192.168.100.20:8003',
+      test30: 'http://192.168.100.30:8003',
+      dev90: 'http://192.168.100.90:8003',
+      uat: 'https://xxxx.giscafer.com',
+      prod: 'https://xxx.giscafer.com'
+    }
+  },
+  {
+    name: 'zhiying',
+    projectName: 'zhiying-ips',
+    projectId: 98,
+    url: {
+      test20: 'http://192.168.100.20:8005',
+      test30: 'http://192.168.100.30:8005',
+      dev90: 'http://192.168.100.90:8005',
+      uat: 'https://xxx.giscafer.com',
+      prod: 'https://xx.giscafer.com'
+    }
+  },
+  {
+    name: 'cmp',
+    projectId: 95,
+    projectName: 'cmp-web',
+    url: {
+      test20: 'http://192.168.100.20:8006',
+      test30: 'http://192.168.100.30:8006',
+      dev90: 'http://192.168.100.90:8006',
+      uat: 'https://xxx.giscafer.com',
+      prod: 'https://x.giscafer.com'
+    }
+  },
+  {
+    name: 'bms',
+    projectName: 'bms-new',
+    projectId: 173,
+    url: {
+      test20: 'http://192.168.100.20:8004',
+      test30: 'http://192.168.100.30:8004',
+      dev90: 'http://192.168.100.90:8004',
+      uat: 'https://xxx.giscafer.com',
+      prod: 'https://xx.giscafer.com'
+    }
+  },
+  {
+    name: 'boss',
+    projectName: 'boss-web',
+    projectId: 96,
+    url: {
+      test20: 'http://192.168.100.20:8001',
+      test30: 'http://192.168.100.30:8001',
+      dev90: 'http://192.168.100.90:8001',
+      uat: 'https://xxxx.giscafer.com',
+      prod: 'https://xx.giscafer.com'
+    }
+  },
+  {
+    name: 'wms',
+    projectName: 'wms-new',
+    projectId: 228,
+    url: {
+      test20: 'http://192.168.100.20:8002',
+      test30: 'http://192.168.100.30:8002',
+      dev90: 'http://192.168.100.90:8002',
+      uat: 'https://xxxx.giscafer.com',
+      prod: 'https://x.giscafer.com'
+    }
+  }
+];

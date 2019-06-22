@@ -1,6 +1,7 @@
 const CQHttp = require('cqhttp');
 const config = require('./config');
-const pipelines = require('./app/pipelines');
+const pipelines = require('./app/gitlab/pipelines');
+const PjServiceCheck = require('./app/gitlab/project-service-check');
 // utils
 const imgUtil = require('./utils/image');
 // module
@@ -8,14 +9,14 @@ const SearchPicture = require('./app/search-picture');
 const getTyphoonInfo = require('./app/typhoon.js');
 const Corn = require('./corn');
 
-const { apiRoot, accessToken, secret } = config;
+const { apiRoot, accessToken, robotQQ } = config;
 
 const bot = new CQHttp({
   apiRoot,
   accessToken
 });
 
-const atLen = 't,qq=3616909583]'.length;
+const atLen = `t,qq=${robotQQ}]`.length;
 
 bot.on('message', context => {
   //   console.log('message', context);
@@ -23,7 +24,7 @@ bot.on('message', context => {
 
   if (message_type === 'group') {
     // at消息
-    let idx = message.indexOf('at,qq=3616909583]');
+    let idx = message.indexOf(`at,qq=${robotQQ}]`);
     let msg = message.substring(idx + atLen + 1) || '';
     console.log(msg);
     if (idx === -1) {
@@ -56,6 +57,28 @@ bot.on('message', context => {
             message: err.errorMsg
           });
         });
+      return;
+    }
+
+    if (raw_message.includes('登录')) {
+      let idx = message.indexOf('登录');
+      let text = raw_message.substring(idx + 2) || '';
+      // console.log('。。。。进来了。。。。。', text);
+      text = text.trim();
+      if (!text) return;
+      let arr = text.split('#');
+      let [projectName = '', projectEnv = ''] = arr;
+      projectName = projectName.trim();
+      projectEnv = projectEnv.trim();
+
+      PjServiceCheck.triggerPipelineByProjectName(projectName, projectEnv).then(
+        msg => {
+          bot('send_msg', {
+            ...context,
+            message: msg
+          });
+        }
+      );
       return;
     }
 
