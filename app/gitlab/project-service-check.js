@@ -79,7 +79,9 @@ function checkProjectExist(projectName) {
   return item;
 }
 
-// triggerPipelineByProjectName('bms', 'prod').then(res => console.log(res));
+/* triggerPipelineByProjectName('boss', 'uat', '368425319').then(res =>
+  console.log(res)
+); */
 
 module.exports = {
   triggerPipeline,
