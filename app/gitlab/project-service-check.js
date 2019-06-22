@@ -26,7 +26,7 @@ function triggerPipeline(projectName, env) {
   );
 }
 
-function triggerPipelineByProjectName(projectName, env) {
+function triggerPipelineByProjectName(projectName, env = '') {
   return new Promise((resolve, reject) => {
     const result = checkProjectExist(projectName);
     let item = result[0];
@@ -48,18 +48,20 @@ function triggerPipelineByProjectName(projectName, env) {
         } 没有找到 ${projectName} 需要检查的服务环境，管理员没有维护`
       );
     }
-    if (item.url && !item.url[env]) {
-      return resolve(
-        `${
-          facecode.question
-        } 没有找到 ${projectName} 需要检查的 ${env} 服务环境，管理员没有维护`
-      );
-    } else if (item.url && item.url[env]) {
-      triggerPipeline(projectName, env);
-    } else {
+    if (!env) {
       keys.forEach(key => {
         triggerPipeline(projectName, key);
       });
+    } else {
+      if (item.url && !item.url[env]) {
+        return resolve(
+          `${
+            facecode.question
+          } 没有找到 ${projectName} 需要检查的 ${env} 服务环境，管理员没有维护`
+        );
+      } else if (item.url && item.url[env]) {
+        triggerPipeline(projectName, env);
+      }
     }
 
     return resolve(`${facecode.coffee} 已经执行指令，请等待执行结果……`);
@@ -71,7 +73,7 @@ function checkProjectExist(projectName) {
   return item;
 }
 
-// triggerPipelineByProjectName('bms', 'uat2').then(res => console.log(res));
+// triggerPipelineByProjectName('ips', 'prod').then(res => console.log(res));
 
 module.exports = {
   triggerPipeline,
