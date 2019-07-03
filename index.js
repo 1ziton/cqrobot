@@ -37,6 +37,17 @@ bot.on('message', context => {
       });
       return;
     }
+    if (text.indexOf('查台风') === 0) {
+      // 台风查询
+      getTyphoonInfo().then(text => {
+        text = text || '当前没有台风！';
+        bot('send_msg', {
+          ...context,
+          message: text
+        });
+      });
+      return;
+    }
     if (raw_message.includes('!!')) {
       let idx = message.indexOf('!!');
       const projectName = raw_message.substring(idx + 2) || '';
