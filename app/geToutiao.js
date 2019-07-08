@@ -1,6 +1,6 @@
 const cheerio = require('cheerio');
-
 const saveData = require('../utils/saveData');
+const getJSON = require('../utils/getJSON');
 
 function getToutiaoData(day = 7) {
   return fetch(`https://toutiao.io/posts/hot/${day}`)
@@ -65,10 +65,13 @@ function generateDataJson() {
   })();
 }
 
-function getData() {
-  const acticles = require('../dist/toutiao-7.json');
+async function getData() {
+  const acticles = await getJSON('toutiao-7.json');
   return acticles.slice(0, 9);
 }
+
+// test
+// getData().then(res => console.log(res));
 
 module.exports = {
   generateDataJson,

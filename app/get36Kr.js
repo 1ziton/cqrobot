@@ -47,9 +47,9 @@ function generateDataJson() {
   })();
 }
 
-function getData() {
-  const acticles = require('../dist/36kr.json');
-  return acticles.slice(0, 15);
+async function getData() {
+  const acticles = await getJSON('36kr.json');
+  return acticles.slice(0, 9);
 }
 
 module.exports = {
