@@ -106,7 +106,7 @@ bot.on('message', context => {
       projectName = projectName.trim();
       sourceBranch = sourceBranch.trim();
       targetBranch = targetBranch.trim();
-
+      console.log(projectName, sourceBranch, targetBranch, user_id)
       mr.autoMr(projectName, sourceBranch, targetBranch, user_id).then(msg => {
         bot('send_msg', {
           ...context,

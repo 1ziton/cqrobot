@@ -42,7 +42,10 @@ async function mrRequest(projectId, sourceBranch, targetBranch, qq) {
       const mrobj = arr[0];
       if (!mrobj.merge_status) {
         // console.log(111);
-        return deleteNoChangeMr(mrobj, sourceBranch, targetBranch);
+        const [e, r] = await handlePromise(
+          deleteNoChangeMr(mrobj, sourceBranch, targetBranch)
+        );
+        return r;
       }
       const [aerr, ares] = await handlePromise(
         acceptMr(
@@ -60,11 +63,14 @@ async function mrRequest(projectId, sourceBranch, targetBranch, qq) {
   if (Number(mrResult.changes_count) > 0) {
     console.log(2222);
     const [aerr, ares] = await handlePromise(acceptMr(mrResult));
-    console.log('ares=', ares);
+    // console.log('ares=', ares);
     return ares;
   } else {
     // 此MR没有变更，没必要合并
-    return deleteNoChangeMr(mrResult, sourceBranch, targetBranch);
+    const [e, r] = await handlePromise(
+      deleteNoChangeMr(mrResult, sourceBranch, targetBranch)
+    );
+    return r;
   }
 }
 
@@ -99,11 +105,12 @@ async function deleteNoChangeMr(mrResult, sourceBranch, targetBranch) {
   if (!delMrErr) {
     return `检测到分支${sourceBranch}与${targetBranch}没有代码变更，无需合并，已删除MR`;
   }
+  return `MR操作失败`;
 }
 
 async function autoMr(projectName, sourceBranch, targetBranch, qq) {
   const [err, projectId] = await handlePromise(getProjectIdByName(projectName));
-  //   console.log(err);
+  console.log(err);
   if (projectId) {
     const result = await mrRequest(projectId, sourceBranch, targetBranch, qq);
     return result;
@@ -115,4 +122,4 @@ module.exports = {
   autoMr
 };
 
-// autoMr('wiki', 'master', 'prod', '11111').then(json => console.log(json));
+autoMr('wiki', 'master', 'dev', '11111').then(json => console.log(json));
