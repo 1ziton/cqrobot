@@ -10,7 +10,8 @@ const SearchPicture = require('./app/search-picture');
 const getTyphoonInfo = require('./app/typhoon.js');
 const Corn = require('./corn');
 
-const { apiRoot, accessToken, robotQQ, gitlab = { devops_admin } } = config;
+const { apiRoot, accessToken, robotQQ, gitlab = {} } = config;
+const devops_admin = gitlab.devops_admin || [];
 
 const bot = new CQHttp({
   apiRoot,
