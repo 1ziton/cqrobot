@@ -1,6 +1,7 @@
 const CQHttp = require('cqhttp');
 const config = require('./config');
 const pipelines = require('./app/gitlab/pipelines');
+const mr = require('./app/gitlab/mr-service');
 const PjServiceCheck = require('./app/gitlab/project-service-check');
 // utils
 const imgUtil = require('./utils/image');
@@ -9,7 +10,7 @@ const SearchPicture = require('./app/search-picture');
 const getTyphoonInfo = require('./app/typhoon.js');
 const Corn = require('./corn');
 
-const { apiRoot, accessToken, robotQQ } = config;
+const { apiRoot, accessToken, robotQQ, gitlab = { devops_admin } } = config;
 
 const bot = new CQHttp({
   apiRoot,
@@ -20,7 +21,7 @@ const atLen = `t,qq=${robotQQ}]`.length;
 
 bot.on('message', context => {
   console.log('message', context);
-  const { message, raw_message, message_type, group_id } = context;
+  const { message, raw_message, message_type, group_id, user_id } = context;
 
   if (message_type === 'group') {
     // at消息
@@ -78,6 +79,27 @@ bot.on('message', context => {
         projectEnv,
         group_id
       ).then(msg => {
+        bot('send_msg', {
+          ...context,
+          message: msg
+        });
+      });
+      return;
+    }
+    if (raw_message.includes('合并') && devops_admin.includes(user_id)) {
+      console.log(user_id);
+      let idx = message.indexOf('合并');
+      let text = raw_message.substring(idx + 2) || '';
+      // console.log('。。。。进来了。。。。。', text);
+      text = text.trim();
+      if (!text) return;
+      let arr = text.split('#');
+      let [projectName = '', sourceBranch = '', targetBranch = ''] = arr;
+      projectName = projectName.trim();
+      sourceBranch = sourceBranch.trim();
+      targetBranch = targetBranch.trim();
+
+      mr.autoMr(projectName, sourceBranch, targetBranch, user_id).then(msg => {
         bot('send_msg', {
           ...context,
           message: msg
