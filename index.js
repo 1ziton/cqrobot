@@ -21,9 +21,9 @@ const bot = new CQHttp({
 const atLen = `t,qq=${robotQQ}]`.length;
 
 bot.on('message', context => {
-  console.log('message', context);
+  // console.log('message', context);
   const { message, raw_message, message_type, group_id, user_id } = context;
-
+  console.log({ message, raw_message, message_type, group_id, user_id });
   if (message_type === 'group') {
     // at消息
     let idx = message.indexOf(`at,qq=${robotQQ}]`);
