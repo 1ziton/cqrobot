@@ -88,12 +88,12 @@ async function acceptMr(mrobj, msg) {
   );
   console.log(acceptErr, acceptRes);
   if (acceptErr) {
-    return `合并失败，查看详细原因mr_url：${mrobj['web_url']}`;
+    return `合并失败，查看详细原因 mr_url：${mrobj['web_url']}`;
   }
   if (msg) {
     return msg;
   }
-  return `MR自动合并成功！, url：${mrobj.web_url}`;
+  return `MR自动合并成功！, mr_url：${mrobj.web_url}`;
 }
 
 async function deleteNoChangeMr(
@@ -113,7 +113,7 @@ async function deleteNoChangeMr(
   if (!delMrErr) {
     let msg = '';
     if (isNoChange) {
-      msg = `检测到分支${sourceBranch}与${targetBranch}没有代码变更，无需合并，已删除MR`;
+      msg = `检测到分支${sourceBranch}与${targetBranch}没有代码变更，无需合并`;
     } else {
       msg = `检测到分支${sourceBranch}与${targetBranch}存在冲突无法合并，已删除MR，请人工解决`;
     }
