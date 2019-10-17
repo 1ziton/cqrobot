@@ -87,9 +87,9 @@ bot.on('message', context => {
       });
       return;
     }
-    
-    if (raw_message.indexOf('合并') !== -1) {
-      if (devops_admin.indexOf(user_id) == -1) {
+
+    if (raw_message.includes('合并')) {
+      if (devops_admin.includes(String(user_id))) {
         bot('send_msg', {
           ...context,
           message: `[CQ:at,qq=${user_id}]无权限操作`
