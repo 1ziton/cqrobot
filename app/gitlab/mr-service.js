@@ -21,7 +21,7 @@ async function mrRequest(projectId, sourceBranch, targetBranch, qq) {
     MR 自动创建人qq:${qq}
     `;
   const createMrUrl = `projects/${projectId}/merge_requests?source_branch=${sourceBranch}&target_branch=${targetBranch}&title=${title}&description=${description}`;
-  const [mrErr, mrResult] = await handlePromise(request(createMrUrl));
+  const [mrErr, mrResult] = await handlePromise(request(createMrUrl), 'POST');
   // 创建MR 失败，可能是已经有重复未合并的MR在
   if (mrErr) {
     const text = mrErr.message[0];

@@ -40,7 +40,7 @@ function request(url, method) {
         return response.json();
       })
       .then(json => {
-        if (json && json.message) {
+        if ((json && json.message) || json.error) {
           console.log('操作失败');
           return reject(json);
         }
