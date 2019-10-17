@@ -96,9 +96,9 @@ bot.on('message', context => {
         });
         return;
       }
-      console.log('。。。。进来了。。。。。', text);
       let idx = message.indexOf('合并');
       let text = raw_message.substring(idx + 2) || '';
+      console.log('。。。。进来了。。。。。', text);
       text = text.trim();
       if (!text) return;
       let arr = text.split('#');
