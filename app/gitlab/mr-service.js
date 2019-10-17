@@ -24,11 +24,12 @@ async function mrRequest(projectId, sourceBranch, targetBranch, qq) {
   const [mrErr, mrResult] = await handlePromise(request(createMrUrl), 'POST');
   // 创建MR 失败，可能是已经有重复未合并的MR在
   if (mrErr) {
-    const text = mrErr.message[0];
+    const text = mrErr.message ? mrErr.message[0] : mrErr.error || '';
     const errorMsg = `操作失败：${text}`;
     const sidx = text.indexOf('["') + 2;
     const eidx = text.indexOf('"]');
     const title = text.substring(sidx, eidx);
+    if (!title) return errorMsg;
     // 获取这个未合并的MR
     const [getMrErr, list = []] = await handlePromise(
       request(`projects/${projectId}/merge_requests?state=opened`, 'GET')
