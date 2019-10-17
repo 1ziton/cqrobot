@@ -101,7 +101,8 @@ async function deleteNoChangeMr(
   targetBranch,
   isNoChange
 ) {
-  // console.log(mrResult);
+  console.log('isNoChange=' + isNoChange);
+  console.log(mrResult);
   const [delMrErr, deleteResult = []] = await handlePromise(
     request(
       `projects/${mrResult.project_id}/merge_requests/${mrResult.iid}`,
@@ -134,4 +135,4 @@ module.exports = {
   autoMr
 };
 
-// autoMr('wiki', 'master', 'dev', '11111').then(json => console.log(json));
+// autoMr('wiki', 'master', 'prod', '11111').then(json => console.log(json));

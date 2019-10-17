@@ -28,7 +28,7 @@ const options = {
 
 function request(url, method) {
   const reqUrl = encodeURI(`https://${host}/api/v4/${url}`);
-  console.log(reqUrl);
+  console.log(method + ':::' + reqUrl);
   if (method) options['method'] = method;
   return new Promise((resolve, reject) => {
     fetch(reqUrl, options)
