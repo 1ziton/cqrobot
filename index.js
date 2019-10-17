@@ -110,7 +110,7 @@ bot.on('message', context => {
       mr.autoMr(projectName, sourceBranch, targetBranch, user_id).then(msg => {
         bot('send_msg', {
           ...context,
-          message: msg
+          message: `[CQ:at,qq=${user_id}] ${msg}`
         });
       });
       return;

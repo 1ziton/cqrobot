@@ -33,6 +33,7 @@ async function mrRequest(projectId, sourceBranch, targetBranch, qq) {
     const [getMrErr, list = []] = await handlePromise(
       request(`projects/${projectId}/merge_requests?state=opened`, 'GET')
     );
+
     // console.log(list);
     if (list.length) {
       const arr = list.filter(mr => mr.title === title);
@@ -40,13 +41,14 @@ async function mrRequest(projectId, sourceBranch, targetBranch, qq) {
         return errorMsg;
       }
       const mrobj = arr[0];
-      if (!mrobj.merge_status) {
+      if (mrobj.merge_status === 'cannot_be_merged') {
         console.log(mrobj);
         const [e, r] = await handlePromise(
-          deleteNoChangeMr(mrobj, sourceBranch, targetBranch)
+          deleteNoChangeMr(mrobj, sourceBranch, targetBranch, false)
         );
         return r;
       }
+      console.log(mrobj);
       const [aerr, ares] = await handlePromise(
         acceptMr(
           mrobj,
@@ -61,15 +63,15 @@ async function mrRequest(projectId, sourceBranch, targetBranch, qq) {
   }
 
   if (Number(mrResult.changes_count) > 0) {
-    console.log(2222);
+    // console.log(2222);
     const [aerr, ares] = await handlePromise(acceptMr(mrResult));
     // console.log('ares=', ares);
     return ares;
   } else {
     // 此MR没有变更，没必要合并
-    console.log(mrResult)
+    console.log(mrResult);
     const [e, r] = await handlePromise(
-      deleteNoChangeMr(mrResult, sourceBranch, targetBranch)
+      deleteNoChangeMr(mrResult, sourceBranch, targetBranch, true)
     );
     return r;
   }
@@ -88,14 +90,17 @@ async function acceptMr(mrobj, msg) {
     return `合并失败，查看详细原因mr_url：${mrobj['web_url']}`;
   }
   if (msg) {
-    console.log('44444');
     return msg;
   }
-  console.log('666666');
   return `MR自动合并成功！, url：${mrobj.web_url}`;
 }
 
-async function deleteNoChangeMr(mrResult, sourceBranch, targetBranch) {
+async function deleteNoChangeMr(
+  mrResult,
+  sourceBranch,
+  targetBranch,
+  isNoChange
+) {
   // console.log(mrResult);
   const [delMrErr, deleteResult = []] = await handlePromise(
     request(
@@ -104,7 +109,13 @@ async function deleteNoChangeMr(mrResult, sourceBranch, targetBranch) {
     )
   );
   if (!delMrErr) {
-    return `检测到分支${sourceBranch}与${targetBranch}没有代码变更，无需合并，已删除MR`;
+    let msg = '';
+    if (isNoChange) {
+      msg = `检测到分支${sourceBranch}与${targetBranch}没有代码变更，无需合并，已删除MR`;
+    } else {
+      msg = `检测到分支${sourceBranch}与${targetBranch}存在冲突无法合并，已删除MR，请人工解决`;
+    }
+    return msg;
   }
   return `MR操作失败`;
 }
