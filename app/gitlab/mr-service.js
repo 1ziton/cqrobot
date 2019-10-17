@@ -123,4 +123,4 @@ module.exports = {
   autoMr
 };
 
-autoMr('wiki', 'master', 'dev', '11111').then(json => console.log(json));
+// autoMr('wiki', 'master', 'dev', '11111').then(json => console.log(json));
