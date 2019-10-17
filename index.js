@@ -89,10 +89,7 @@ bot.on('message', context => {
     }
 
     if (raw_message.includes('合并')) {
-      console.log(devops_admin);
-      console.log(String(user_id).trim());
-      console.log(devops_admin.includes(String(user_id).trim()));
-      if (devops_admin.includes(String(user_id).trim())) {
+      if (!devops_admin.includes(String(user_id).trim())) {
         bot('send_msg', {
           ...context,
           message: `[CQ:at,qq=${user_id}]无权限操作`
