@@ -87,17 +87,18 @@ bot.on('message', context => {
       });
       return;
     }
-    console.log(devops_admin);
-    console.log(
-      'devops_admin.includes(user_id)=' + devops_admin.indexOf(user_id) !== -1
-    );
-    console.log('user_id=' + user_id);
-    console.log((raw_message.includes('合并') && devops_admin.indexOf(user_id) !== -1))
-
-    if (raw_message.includes('合并') && devops_admin.indexOf(user_id) !== -1) {
+    
+    if (raw_message.indexOf('合并') !== -1) {
+      if (devops_admin.indexOf(user_id) == -1) {
+        bot('send_msg', {
+          ...context,
+          message: `[CQ:at,qq=${user_id}]无权限操作`
+        });
+        return;
+      }
+      console.log('。。。。进来了。。。。。', text);
       let idx = message.indexOf('合并');
       let text = raw_message.substring(idx + 2) || '';
-      console.log('。。。。进来了。。。。。', text);
       text = text.trim();
       if (!text) return;
       let arr = text.split('#');
