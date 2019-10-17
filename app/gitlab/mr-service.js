@@ -41,7 +41,7 @@ async function mrRequest(projectId, sourceBranch, targetBranch, qq) {
       }
       const mrobj = arr[0];
       if (!mrobj.merge_status) {
-        // console.log(111);
+        console.log(mrobj);
         const [e, r] = await handlePromise(
           deleteNoChangeMr(mrobj, sourceBranch, targetBranch)
         );
@@ -67,6 +67,7 @@ async function mrRequest(projectId, sourceBranch, targetBranch, qq) {
     return ares;
   } else {
     // 此MR没有变更，没必要合并
+    console.log(mrResult)
     const [e, r] = await handlePromise(
       deleteNoChangeMr(mrResult, sourceBranch, targetBranch)
     );
