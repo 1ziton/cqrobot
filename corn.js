@@ -79,17 +79,17 @@ module.exports = function(bot) {
     'Asia/Shanghai'
   );
   // 即刻早报
-  let job_jike_notice = new CronJob(
-    `50 8 * * *`,
-    () => {
-      Jike.getData().then(content => {
-        publish(content, config.rss.jikeGroupIds);
-      });
-    },
-    null,
-    true,
-    'Asia/Shanghai'
-  );
+  // let job_jike_notice = new CronJob(
+  //   `50 8 * * *`,
+  //   () => {
+  //     Jike.getData().then(content => {
+  //       publish(content, config.rss.jikeGroupIds);
+  //     });
+  //   },
+  //   null,
+  //   true,
+  //   'Asia/Shanghai'
+  // );
   //   let test = new CronJob(
   //     '*/10 * * * * *',
   //     () => {
@@ -107,7 +107,7 @@ module.exports = function(bot) {
 
   job_datasync.start();
   job_kr36_notice.start();
-  job_jike_notice.start();
+  // job_jike_notice.start();
   job_toutiao_notice.start();
   //   test.start();
   log('job started');
