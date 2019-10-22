@@ -60,6 +60,7 @@ module.exports = function(bot) {
   let job_toutiao_notice = new CronJob(
     `54 8 * * 1`,
     () => {
+      console.log('job_toutiao_notice');
       let articles = Toutiao.getData();
       publish(articles, config.rss.groupIds);
     },
@@ -71,6 +72,7 @@ module.exports = function(bot) {
   let job_kr36_notice = new CronJob(
     `40 8 * * 1`,
     () => {
+      console.log('job_kr36_notice');
       let articles = Kr36.getData();
       publish(articles, config.rss.kr36GroupIds);
     },
